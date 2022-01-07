@@ -1,0 +1,196 @@
+
+%% <<아래한글 기준>>
+%% - 편집용지 : A4(210 x 297mm)
+%% - 용지여백 : 위 · 아래 여백 38mm, 머리말 · 꼬리말 15mm
+%%              좌 · 우 여백 35mm
+%% - 들여쓰기 : 문단 시작은 2칸 띄움
+%% - 줄 간 격 : 160% - 200%
+%% - 정렬방식 : 혼합
+%% - 글씨체 및 크기
+%%   · 큰 제 목 - 16point (명조, 신명조, 바탕체, 굴림체 중 사용), 진하게
+%%   · 중간제목 - 13point (명조, 신명조, 바탕체, 굴림체 중 사용), 진하게
+%%   · 본    문 - 10 또는 11point (명조, 신명조, 바탕체, 굴림체 중 사용)
+%%   · 각    주 - 9point (명조, 신명조, 바탕체, 굴림체 중 사용)
+%%
+%%
+%% <<학위논문 제본방법>>
+%% 1. 판  종 : 4ㆍ6배판(18.5cm X 25.5cm)
+%% 2. 지  질 : 70파운드 이상 모조지
+%% 3. 인쇄방식 : 단면 혹은 양면 인쇄하되 논문은 마스터, 옵셋인쇄로 한다.
+%% 4. 제 본 식 : 클로스 양장. 다만, 석사학위논문에 한해 클로스 양장 또는 종이제본 중 어느 것으로도 할 수 있다.
+%% 5. 표지색깔 : 석사학위논문은 진한 감(紺)색, 박사학위논문은 흑(黑)색으로 한다. 석사학위 논문을 종이 제본하는 경우에는 회백색으로 한다.
+%% 6. 표지인쇄방식 : 다음 [그림 1]에 따르며, 명조체 2호(22p) 활자로 하고 금색으로 인쇄한다. 석사학위논문을 종이 제본하는 경우에는 회백색으로 한다.
+%%
+
+
+\documentclass[a4paper,         % 공급용지
+                11pt,           % 본문 글씨 크기
+                oneside,        % 단면 인쇄
+                openany,        % 임의의 챕터 시작 페이지
+                % chapter,        %
+                % draft,
+                showtrims       % 재단선 표시
+                ]{oblivoir}     %
+
+
+%% 편집용지 지정
+\usepackage{fapapersize}
+\usefapapersize{*,*,35mm,*,53mm,*}
+
+%% 머리말 꼬리말 높이 지정. \usefapapersize 이후에 지정할 수 있음.
+\setheadfoot{15mm}{15mm}
+\setheaderspaces{*}{0pt}{*}
+
+
+\usepackage{listings}
+\usepackage{amsmath}
+% 표의 row 간격 조절에 사용하는 변수값도 \arraystretch로 같아서,
+% 매트릭스일 경우만 \arraystretch를 다시 1.0으로 설정하도록 지정.
+\makeatletter
+\renewcommand*\env@matrix{ %
+    \edef\arraystretch{0.7} %
+    \hskip -\arraycolsep
+    \let\@ifnextchar\new@ifnextchar
+    \array{*\c@MaxMatrixCols c}}
+\makeatother
+
+\let\comment\undefined
+\let\added\undefined
+\let\deleted\undefined
+\usepackage{changes}
+\definechangesauthor[name={Delete}, color=red]{del}
+\definechangesauthor[name={Add}, color=blue]{add}
+\definechangesauthor[name={Note}, color=orange]{note}
+\definechangesauthor[name={Yoo}, color=green]{yoo}
+\setauthormarkuptext{}
+\newcommand{\add}[1]{\added[id=add]{#1}}
+\newcommand{\del}[1]{\deleted[id=del]{#1}}
+\newcommand{\repl}[2]{\added[id=add]{#1}\deleted[id=del]{#2}}
+
+\usepackage[singlelinecheck=true]{caption}
+% 출처용 캡션의 글씨 크기만 줄임.
+\makeatletter
+\patchcmd{\caption@@@make}% <cmd>
+  {\ifcaption@star}% <search>
+    {\ifcaption@star\scriptsize}% <replace>
+    {}{}% <success><failure>
+\makeatother
+\usepackage[labelformat=simple]{subcaption}
+\usepackage{tabularx}
+% subfigure를 레퍼런스할 때 괄호 포매팅이 되도록 지정
+\renewcommand\thesubfigure{(\alph{subfigure})}
+% 자간 조정
+% \usepackage[letterspace=125]{microtype}
+
+
+\let\printglossary\relax
+\let\theglossary\relax
+\let\endtheglossary\relax
+\usepackage[acronym, toc, section, nogroupskip, style=index]{glossaries}
+\usepackage{pdfpages}
+
+\newcommand{\urlfootnote}[1]{\protect\footnote{\url{#1}}}
+
+\usepackage[backend=biber,style=numeric,maxnames=100,sorting=none]{biblatex}
+\addbibresource{reference.bib}
+\renewcommand{\finalnamedelim}{, }
+
+\usepackage{rotating}
+
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{environ}
+\usepackage{siunitx}
+
+
+\usepackage{yonseiThesis} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 들여쓰기 1em
+\setlength{\parindent}{1em}
+
+
+\hypersetup{
+    hidelinks
+}
+
+\usepackage{multirow}
+
+% 표 column 간격 조절
+\setlength{\tabcolsep}{8px}
+% 표 row 간격 조절
+\renewcommand{\arraystretch}{1.8}
+
+
+% makeglossaries 커맨드가 main.tex에 있어야 함...
+\makeglossaries
+\include{contents/acronyms}
+
+
+
+% 메타데이터
+\titleEng{Web-based Remote XR Collaboration \\ Using Real-time Digital Twinning of Workspace}
+\titleKr{실시간 디지털 트윈 공간 구성을 이용한 \\ 웹 기반 원격 XR 협업 방법}
+\authorNameEng{Yongjae Lee}
+\authorNameKr{이용재}
+\affilDeptNameEng{Dept. of Mechanical Engineering}
+\affilDeptNameKr{기계공학과}
+\affilSchoolNameEng{The Graduate School}
+\affilSchoolNameKr{대학원}
+\affilUnivNameEng{Yonsei University}
+\affilUnivNameKr{연세대학교}
+\advisor{이수홍}{유병현}
+\submitDate{2021년 7월 9일}
+
+% 인준서
+% 다음 라인을 주석처리하면 서명란이 비어있는 페이지가 생성됨.
+\approvalFile{approval.pdf}
+\approvalDate{2021년 7월 9일}
+
+\include{contents/ack}
+\include{contents/abs-korean}
+\include{contents/abs-english}
+\keywordsKr{확장현실, 가상현실, 증강현실, 웹 기반 확장현실, 원격 확장현실 협업, 실시간 디지털 트윈 공간 구성, 웹 기반 실시간 통신}
+\keywordsEng{Extended Reality, XR, Virtual Reality, Augmented Reality, Web-based XR, Remote XR Collaboration, Real-time Digital Twinning, WebRTC}
+
+
+\begin{document}
+
+%% 머리지면 (preliminaries) 생성
+\maketitlepages
+
+
+    \include{contents/ch1-intro}
+    \newpage
+    
+    \include{contents/ch2-related}
+    \newpage
+    
+    \include{contents/ch3-system}
+    \newpage
+    
+    \include{contents/ch4-result}
+    \newpage
+    
+    \include{contents/ch5-conclusion}
+    \newpage
+
+
+    \clearpage
+    % 참고문헌
+    % 참고문헌 출력할 때만 잠시 줄간격을 1로 돌림
+    {
+        \linespread{1.0}
+        \setlength{\bibitemsep}{2\itemsep}
+        \sloppy
+        \printbibliography[title=참고문헌,heading=subbibintoc]
+    }
+    \clearpage
+    
+    
+    \makeAbstractEng
+
+\end{document}

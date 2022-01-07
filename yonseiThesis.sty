@@ -1,0 +1,297 @@
+
+\ProvidesPackage{yonseiThesis}
+
+
+%% 전체 줄간격
+\linespread{1.8}
+
+%% 기초 정보
+\makeatletter
+\newcommand{\@advisorName}{지도교수}
+\newcommand{\@submissionPhrase}{이 논문을 석사 학위논문으로 제출함}
+\newcommand{\@acknowledgementName}{감사의 글}
+\newcommand{\@acknowledgementComplimentaryName}{올림}
+\newcommand{\@abstractNameEng}{영문요약}
+\newcommand{\@abstractNameKr}{국문요약}
+\newcommand{\@keywordsNameKr}{핵심 되는 말}
+\newcommand{\@keywordsNameEng}{Key Words}
+
+
+\newcommand{\titleEng}[1]{\gdef\@titleEng{#1}}
+\newcommand{\titleKr}[1]{\gdef\@titleKr{#1}}
+\newcommand{\authorNameEng}[1]{\gdef\@authorNameEng{#1}}
+\newcommand{\authorNameKr}[1]{\gdef\@authorNameKr{#1}}
+\newcommand{\affilDeptNameEng}[1]{\gdef\@affilDeptNameEng{#1}}
+\newcommand{\affilDeptNameKr}[1]{\gdef\@affilDeptNameKr{#1}}
+\newcommand{\affilSchoolNameEng}[1]{\gdef\@affilSchoolNameEng{#1}}
+\newcommand{\affilSchoolNameKr}[1]{\gdef\@affilSchoolNameKr{#1}}
+\newcommand{\affilUnivNameEng}[1]{\gdef\@affilUnivNameEng{#1}}
+\newcommand{\affilUnivNameKr}[1]{\gdef\@affilUnivNameKr{#1}}
+\newcommand{\advisor}[2]{\gdef\@advisorFirst{#1}\gdef\@advisorSecond{#2}}
+\newcommand{\abstractKr}[1]{\gdef\@abstractKr{#1}}
+\newcommand{\abstractEng}[1]{\gdef\@abstractEng{#1}}
+\newcommand{\keywordsKr}[1]{\gdef\@keywordsKr{#1}}
+\newcommand{\keywordsEng}[1]{\gdef\@keywordsEng{#1}}
+\newcommand{\acknowledgement}[1]{\gdef\@acknowledgement{#1}}
+\newcommand{\acknowledgementDate}[1]{\gdef\@acknowledgementDate{#1}}
+\newcommand{\submitDate}[1]{\gdef\@submitDate{#1}}
+\newcommand{\approvalFile}[1]{\gdef\@approvalFilePath{#1}}
+\newcommand{\approvalDate}[1]{\gdef\@approvalDate{#1}}
+
+%% 학위논문 작성 요령에 따른 글자 크기 / 굵기
+\newcommand{\subtitlesizebf}[1]{{\Large \textbf{#1}}}
+
+
+%% 표제면
+\newcommand{\makecover}{
+    \begingroup
+    \thispagestyle{empty} 
+    \noindent
+    \begin{center}
+        \fontsize{22pt}{22pt} \selectfont
+        
+        \@titleKr \\
+        
+        \vfill
+        
+        \@affilUnivNameKr~\@affilSchoolNameKr \\
+        \@affilDeptNameKr \\
+        \@authorNameKr \\
+        
+        \vskip 1.5cm
+        
+    \end{center}
+    \endgroup
+}
+
+%% 제출서
+\newcommand{\makeTitle}{
+    \begingroup
+    \thispagestyle{empty} 
+    \noindent
+    \begin{center}
+        \fontsize{22pt}{22pt} \selectfont
+        
+        \@titleKr \\
+        
+        \vfill
+        
+        \fontsize{16pt}{16pt} \selectfont
+        \@advisorName~\@advisorFirst·\@advisorSecond \\
+
+        \vfill
+        
+        \@submissionPhrase \\
+        
+        \vfill
+        
+        \@submitDate \\
+        
+        \vfill
+        
+        \@affilUnivNameKr~\@affilSchoolNameKr \\
+        \@affilDeptNameKr \\
+        \@authorNameKr \\
+        
+        \vskip 1.5cm
+        
+    \end{center}
+    \endgroup
+}
+
+%% 인준서
+\newcommand{\makeApproval}{
+    \begingroup
+    \thispagestyle{empty} 
+    \noindent
+    \begin{center}
+        \fontsize{22pt}{22pt} \selectfont
+        
+        \@authorNameKr의 석사 학위논문을 인준함 \\
+        
+        \vskip 2cm
+        
+        \fontsize{16pt}{16pt} \selectfont
+        \begin{flushright}
+        심사위원 \underline{\hspace*{6cm}인} \\
+        \vskip 0.5cm
+        심사위원 \underline{\hspace*{6cm}인} \\
+        \vskip 0.5cm
+        심사위원 \underline{\hspace*{6cm}인} \\
+        \end{flushright}
+
+        \vfill
+        
+        \fontsize{22pt}{22pt} \selectfont
+        \@affilUnivNameKr~\@affilSchoolNameKr \\
+        
+        \vskip 1cm
+        
+        \fontsize{16pt}{16pt} \selectfont
+        \@approvalDate \\
+        
+        \vskip 1.5cm
+        
+    \end{center}
+    \endgroup
+}
+
+%% 국문요약
+\newcommand{\makeAbstractKr}{
+    \phantomsection 
+    \addcontentsline{toc}{section}{\@abstractNameKr}
+    \subtitlesizebf{\@abstractNameKr}
+    \vskip 5mm
+    \begin{center}
+    \subtitlesizebf{\@titleKr}
+    \end{center}
+    \vskip 5mm
+    \@abstractKr
+    \vfill
+    \noindent\rule{\textwidth}{0.5pt}
+    \noindent \@keywordsNameKr ~:~ \@keywordsKr
+}
+
+%% 영문요약
+\newcommand{\makeAbstractEng}{
+    \phantomsection 
+    \addcontentsline{toc}{section}{\@abstractNameEng}
+    \subtitlesizebf{\@abstractNameEng}
+    \vskip 5mm
+    \begin{center}
+    \subtitlesizebf{\@titleEng}
+    \end{center}
+    \vskip 5mm
+    \begin{flushright}
+    \@authorNameEng \\
+    \@affilDeptNameEng \\
+    \@affilSchoolNameEng \\
+    \@affilUnivNameEng \\
+    \end{flushright}
+    \vskip 5mm
+    \@abstractEng
+    \vfill
+    \noindent\rule{\textwidth}{0.5pt}
+    \noindent \@keywordsNameEng ~:~ \@keywordsEng
+}
+
+%% 감사의 글
+\newcommand{\makeAcknowledgement}{
+    \thispagestyle{empty} 
+    \setcounter{page}{-1}
+    \begin{center}
+    \subtitlesizebf{\@acknowledgementName}
+    \end{center}
+    \vskip 5mm
+    \@acknowledgement
+    \vskip 5mm
+    \begin{flushright}
+    \@acknowledgementDate \\
+    \@authorNameKr~\@acknowledgementComplimentaryName \\
+    \end{flushright}
+    \vfill
+}
+
+
+
+
+
+
+% section 넘버링을 3 번째 depth(subsubsection)까지 하도록 설정
+\setsecnumdepth{subsubsection}
+
+% toc에 나타낼 depth level.
+\maxtocdepth{subsubsection}
+% section, subsection, subsubsection entry의 indentation 조절
+\setlength{\cftsectionindent}{0em}
+\setlength{\cftsubsectionindent}{2em}
+\setlength{\cftsubsubsectionindent}{4em}
+% section entry는 굵은 글씨로
+\renewcommand*{\cftsectionfont}{\bfseries}
+% \renewcommand*{\cftsectionpagefont}{\bfseries}
+% Toc 타이틀을 중앙 정렬
+% \renewcommand*{\printtoctitle}[1]{\centering#1} 
+
+
+
+% 그림을 각주 위에 배치
+\feetbelowfloat
+
+
+% Figure, Table 캡션 변경
+\renewcommand{\figurename}{그림.}
+\renewcommand{\tablename}{표.}
+
+
+\newcommand{\maketitlepages}{
+
+    %% 페이지 구성
+    %% - Cover page (겉표지)
+    %% - Title page (제출서)
+    %% - Signature page (인준서)
+    %% - Acknowledgement (감사의 글)
+    %% - toc
+    %% - tol, tot
+    %% - Abbreviation
+    %% - Abstract (domestic)
+    
+    
+    \frontmatter
+    % \renewcommand{\thepage}{- \Roman{page} -}
+    
+    % 겉표지
+    \makecover
+    \clearpage
+    
+    % 제출서
+    \makeTitle
+    \clearpage
+    
+    \ifdefined \@approvalFilePath
+        \includepdf{\@approvalFilePath}
+    \else
+        \makeApproval
+        \clearpage
+    \fi
+    
+    \makeAcknowledgement
+    \clearpage
+    
+    \setcounter{page}{1}
+    
+    \tableofcontents*
+    \clearpage
+    
+    \phantomsection
+    \addcontentsline{toc}{section}{\listfigurename}
+    {
+    \let\oldnumberline\numberline
+    \renewcommand{\numberline}{\figurename~\oldnumberline}
+    \listoffigures*
+    }
+    \clearpage
+    
+    \phantomsection
+    \addcontentsline{toc}{section}{\listtablename}
+    {
+    \let\oldnumberline\numberline
+    \renewcommand{\numberline}{\tablename~\oldnumberline}
+    \listoftables*
+    }
+    \clearpage
+
+    \printglossary[type=\acronymtype, title=약호표, nonumberlist]
+    \clearpage
+    
+    \makeAbstractKr
+    \clearpage
+    
+    \mainmatter
+    \counterwithin{figure}{section}
+    \counterwithin{table}{section}
+    \renewcommand{\thefigure}{\arabic{section}-\arabic{figure}}
+    \renewcommand{\thetable}{\arabic{section}-\arabic{table}}
+    
+}
+
+\makeatother
